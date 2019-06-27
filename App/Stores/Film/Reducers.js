@@ -15,13 +15,12 @@ export const fetchFilmsLoading = (state) => ({
 })
 
 export const fetchFilmsSuccess = (state, { films }) => {
-  console.log('Reducers : fetchFilmsSuccess state films', state, films)
+  // console.log('Reducers : fetchFilmsSuccess state films', state, films)
   return {
     ...state,
     films: state.films.concat(films.results),
     filmsIsLoading: false,
     filmsErrorMessage: null,
-    // page: state.page + 1,
     page: films.page,
     totalPages: films.total_pages,
   }
@@ -59,6 +58,21 @@ export const fetchDetailsSuccess = (state, { details }) => ({
   detailsErrorMessage: null,
 })
 
+// export const toggleFavourite = (state, { film }) => ({
+//   ...state,
+//   favouriteFilms: [...favouriteFilms, film],
+// })
+
+export const addToFavourite = (state, { film }) => ({
+  ...state,
+  favouriteFilms: [...state.favouriteFilms, film],
+})
+
+export const deleteFromFavourite = (state, { favouriteFilms }) => ({
+  ...state,
+  favouriteFilms: favouriteFilms,
+})
+
 /**
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
@@ -72,4 +86,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [FilmsTypes.FETCH_DETAILS_LOADING]: fetchDetailsLoading,
   [FilmsTypes.FETCH_DETAILS_SUCCESS]: fetchDetailsSuccess,
   [FilmsTypes.FETCH_DETAILS_FAILURE]: fetchDetailsFailure,
+
+  // [FilmTypes.TOGGLE_FAVOURITE]: toggleFavourite,
+  [FilmsTypes.ADD_TO_FAVOURITE]: addToFavourite,
+  [FilmsTypes.DELETE_FROM_FAVOURITE]: deleteFromFavourite,
 })

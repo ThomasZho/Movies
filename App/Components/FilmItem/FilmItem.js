@@ -1,66 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi } from '../../Services/FilmService'
+import { Text, View, Image, TouchableOpacity } from 'react-native'
 import Styles from './FilmItemStyle'
 import { connect } from 'react-redux'
 import filmActions from 'App/Stores/Film/Actions'
+
+import isFavourite from 'App/Assets/Images/FavouriteFilm.png'
+import isNotFavourite from 'App/Assets/Images/NotFavourite.png'
+
 class FilmItem extends Component {
-  //   render() {
-  //     return (
-  //       <View style={Styles.main_container} className="main">
-  //         <View style={Styles.image}>
-  //           <Image
-  //             source={{ uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png' }}
-  //           />
-  //         </View>
-  //         <View style={Styles.second_container}>
-  //           <View style={Styles.flexRow}>
-  //             <View style={{ flex: 4 }}>
-  //               <Text style={Styles.title_text}>Titre du film</Text>
-  //             </View>
-  //             <View style={{ flex: 1 }}>
-  //               <Text>Vote</Text>
-  //             </View>
-  //           </View>
-  //           <View style={Styles.description}>
-  //             <Text>Description</Text>
-  //           </View>
-  //           <View style={Styles.date}>
-  //             <Text>Sorti le 00/00/0000</Text>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     )
-  //   }
-  // }
-
-  // const Styles = StyleSheet.create({
-  //   main_container: {
-  //     height: 190,
-  //     flex: 1,
-  //     flexDirection: 'row',
-  //   },
-  //   image: {
-  //     flex: 1,
-  //   },
-  //   flexRow: {
-  //     flexDirection: 'row',
-  //   },
-  //   flexColumn: {
-  //     flexDirection: 'column',
-  //   },
-  //   second_container: {
-  //     // backgroundColor: 'green',
-  //     flex: 3,
-  //     flexDirection: 'column',
-  //   },
-  //   description: { flex: 3, justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' },
-  //   date: { flex: 1, justifyContent: 'center', backgroundColor: 'pink', alignItems: 'flex-end' },
-  //   title_text: {
-  //     fontWeight: 'bold',
-  //     flex: 1,
-  //   },
-
   render() {
     const { film, fetchDetails } = this.props
     return (
@@ -71,6 +18,14 @@ class FilmItem extends Component {
         />
         <View style={Styles.content_container}>
           <View style={Styles.header_container}>
+            <Image
+              style={Styles.favourite_image}
+              source={
+                this.props.favouriteFilms.find((item) => item.id === film.id)
+                  ? isFavourite
+                  : isNotFavourite
+              }
+            />
             <Text style={Styles.title_text}>{film.title}</Text>
             <Text style={Styles.vote_text}>{film.vote_average}</Text>
           </View>
@@ -89,12 +44,17 @@ class FilmItem extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    favouriteFilms: state.f.favouriteFilms,
+  }
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchDetails: (id) => dispatch(filmActions.fetchDetails(id)),
   }
 }
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(FilmItem)

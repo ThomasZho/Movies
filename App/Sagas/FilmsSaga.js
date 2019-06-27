@@ -14,7 +14,7 @@ export function* searchFilms({ title, page }) {
   yield put(FilmActions.fetchFilmsLoading())
   //lancer l'action
   // Fetch user informations from an API
-  console.log('page', page)
+  console.log('Saga searchFilms page de la recherche', page)
 
   const films = yield call(filmService.getFilmsFromApiWithSearchedText, title, page) //lancer requete
 
@@ -51,6 +51,23 @@ export function* getFilmDetails({ id }) {
   }
 }
 
-// export function* getImage({poster_path}) {
-//   yield call(filmService.getImageFromApi(poster_path))
-// }
+// export function* toggleFavourite({ favouriteFilms }, { id }) {
+export function* toggleFavourite({ favouriteFilms, film }) {
+  if (favouriteFilms.find((item) => item.id === film.id)) {
+    // yield put(FilmActions.toggleFavourite(filmToFavourite))
+    favouriteFilms = favouriteFilms.filter((item) => item.id !== film.id)
+    yield put(FilmActions.deleteFromFavourite(favouriteFilms))
+  } else {
+    // yield put(FilmActions.toggleFavourite(filmToFavourite))
+    yield put(FilmActions.addToFavourite(film))
+  }
+
+  //Autre possibilité 1
+  // if (favouriteFilms.find((item) => item.id === film.id)) {
+  //   favouriteFilms = favouriteFilms.filter((item) => item.id !== film.id)
+  // } else {
+  //   favouriteFilms.push(film)
+  // }
+  // On met à jour les films mis en favoris
+  // yield put(FilmActions.toggleFavourite(favouriteFilms));
+}

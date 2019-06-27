@@ -38,6 +38,11 @@ const { Types, Creators } = createActions({
   fetchDetailsLoading: null,
   fetchDetailsSuccess: ['details'],
   fetchDetailsFailure: ['errorMessage'],
+
+  toggleFavourite: ['favouriteFilms', 'film'],
+  // toggleFavourite: ['film'],
+  addToFavourite: ['film'],
+  deleteFromFavourite: ['favouriteFilms'],
 })
 
 export const FilmsTypes = Types

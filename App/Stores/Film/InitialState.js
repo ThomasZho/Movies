@@ -8,7 +8,8 @@ export const INITIAL_STATE = {
   page: 1,
   totalPages: 0,
   currentFilmDetails: {},
-  // currentFilmId: null,
   detailsLoading: false,
   detailsErrorMessage: null,
+  favouriteFilms: [],
+  // favouriteFilmId: -1,
 }

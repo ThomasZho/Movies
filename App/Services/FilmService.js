@@ -27,7 +27,7 @@ const imageApiClient = axios.create({
 //   },
 //   function(error) {
 //     // Do something with request error
-//     console.log('azazazaz')
+//     console.log('error')
 //     return Promise.reject(error)
 //   }
 // )

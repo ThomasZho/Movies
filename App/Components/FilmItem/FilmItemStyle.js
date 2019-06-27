@@ -18,6 +18,12 @@ export default StyleSheet.create({
   header_container: {
     flex: 3,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  favourite_image: {
+    width: 30,
+    height: 30,
   },
   title_text: {
     fontWeight: 'bold',
@@ -25,6 +31,7 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap', // Force passage à la ligne
     paddingRight: 5,
+    paddingLeft: 5,
   },
   vote_text: {
     fontWeight: 'bold',

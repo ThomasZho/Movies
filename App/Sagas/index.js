@@ -1,7 +1,7 @@
 import { takeLatest, all } from 'redux-saga/effects'
 import { FilmsTypes } from 'App/Stores/Film/Actions'
 import { StartupTypes } from 'App/Stores/Startup/Actions'
-import { searchFilms, getFilmDetails } from './FilmsSaga'
+import { searchFilms, getFilmDetails, toggleFavourite } from './FilmsSaga'
 import { startup } from './StartupSaga'
 
 export default function* root() {
@@ -15,5 +15,6 @@ export default function* root() {
     // takeLatest(ExampleTypes.FETCH_USER, fetchUser),
     takeLatest(FilmsTypes.FETCH_FILMS, searchFilms),
     takeLatest(FilmsTypes.FETCH_DETAILS, getFilmDetails),
+    takeLatest(FilmsTypes.TOGGLE_FAVOURITE, toggleFavourite),
   ])
 }

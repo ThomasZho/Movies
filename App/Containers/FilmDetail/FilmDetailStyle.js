@@ -43,4 +43,7 @@ export default StyleSheet.create({
     marginRight: 5,
     marginTop: 5,
   },
+  favourite_container: {
+    alignItems: 'center',
+  },
 })

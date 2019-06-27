@@ -22,7 +22,6 @@ class Search extends React.Component {
     this.searchedText = ''
     // this.page = 0 // Compteur pour connaître la page courante
     // this.totalPages = 0 // Nombre de pages totales pour savoir si on a atteint la fin des retours de l'API TMDB
-    // this.state = { films: [], isLoading: false }
   }
 
   componentDidMount() {
@@ -30,8 +29,6 @@ class Search extends React.Component {
   }
 
   _searchFilms() {
-    console.log('====================================')
-    console.log('====================================')
     console.log(
       'Search.js _searchFilms',
       this.props.films,
@@ -40,6 +37,7 @@ class Search extends React.Component {
       'props : ',
       this.props
     )
+
     this.props.reset()
     this.props.fFilm(this.searchedText, this.props.page)
     // this.setState(
@@ -111,6 +109,8 @@ class Search extends React.Component {
         <FlatList
           // data={this.props.films.filter((item) => item.id)}
           data={this.props.films}
+          // On utilise la prop extraData pour indiquer à notre FlatList que d’autres données doivent être prises en compte si on lui demande de se re-rendre
+          extraData={this.props.favouriteFilms}
           keyExtractor={(item) => {
             // console.log(item)
             item.id.toString()
@@ -140,6 +140,7 @@ const mapStateToProps = (state) => {
     totalPages: state.f.totalPages,
     filmIsLoading: state.f.filmsIsLoading,
     filmErrorMessage: state.f.filmsErrorMessage,
+    favouriteFilms: state.f.favouriteFilms,
   }
 }
 
